@@ -1,0 +1,32 @@
+extends layout
+
+block content
+
+  h1.page_title Giudice: #{giudice.nome}
+
+
+  .container
+      .row
+        .col-md-offset-2.col-md-8.text-center
+          br
+          a.btn.btn-warning(href=giudice.url+'/delete') Rimuovi
+          a.btn.btn-primary(href=giudice.url+'/update') Aggiorna
+          br
+          h3.titolo Istanze Gratuito Patrocinio:
+
+          if giudice_con_gratuito.length
+            table.table.text-left
+              thead
+                tr
+                  th Fascicolo
+                  th Nome Richiedente
+              tbody
+              each pratica in giudice_con_gratuito
+                tr
+                  td
+                    a(href=pratica.url) #{pratica.fascicolo}
+                  td #{pratica.cliente.nome_completo}
+
+          else
+            p Presso #{giudice.nome} non ci sono istanze di gratuito patrocinio in corso.
+

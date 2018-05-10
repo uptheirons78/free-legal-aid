@@ -1,0 +1,30 @@
+{
+  "name": "free-legal-aid",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node, Express and MongoDB Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+  },
+  "keywords": [],
+  "author": "Mauro Bono",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "^5.0.1",
+    "express": "~4.16.0",
+    "express-validator": "^5.1.2",
+    "http-errors": "~1.6.2",
+    "moment": "^2.22.1",
+    "mongoose": "^5.0.16",
+    "morgan": "~1.9.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}

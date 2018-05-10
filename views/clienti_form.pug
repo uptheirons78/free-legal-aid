@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1.page_title=title
+
+  .container
+    .row
+      .col-md-offset-3.col-md-6.modulo
+        form(method='POST' action='')
+          div.form-group
+            input#nome.form-control(type='text' placeholder='Inserisci il nome del cliente' name='nome' required='true' value=(undefined===cliente ? '' : cliente.nome) )
+          div.form-group
+            input#cognome.form-control(type='text' placeholder='Inserisci il cognome del cliente' name='cognome' required='true' value=(undefined===cliente ? '' : cliente.cognome))
+          div.form-group
+            input#data_di_nascita.form-control(type='date' name='data_di_nascita' placeholder='Inserisci data di nascita: ' value=(undefined===cliente ? 'Inserisci data di nascita: ' : cliente.data_di_nascita_yyyy_mm_dd) )
+          div.form-group
+            input#luogo_di_nascita.form-control(type='text' name='luogo_di_nascita' placeholder='Inserisci la nazione di nascita del cliente' value=(undefined===cliente ? '' : cliente.luogo_di_nascita) )
+          button.btn.btn-primary(type='submit') Salva
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

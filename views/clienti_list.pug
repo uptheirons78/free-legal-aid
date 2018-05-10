@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1.page_title= title
+  .container
+    .row
+      .col-md-offset-2.col-md-8
+        table.table
+          thead
+            tr
+              th Nome
+              th Data di Nascita
+              th Luogo di Nascita
+          tbody
+          each cliente in clienti_list
+            tr
+              td
+                a(href=cliente.url) #{cliente.nome_completo}
+              td #{cliente.data_di_nascita_formattata}
+              td #{cliente.luogo_di_nascita}
+
+          else
+            p NON CI SONO ANAGRAFICHE CLIENTI.

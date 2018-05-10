@@ -1,0 +1,36 @@
+extends layout
+
+block content
+
+  h1.page_title Elimina Materia: #{materia.nome}
+
+  if materia_con_gratuito.length
+
+    .container
+        .row
+            .col-md-offset-2.col-md-8.text-center
+
+                p.warning #[strong Elimina le seguenti pratiche prima di poter eliminare questa materia.]
+                table.table.text-left
+                    thead
+                        tr
+                        th Fascicolo
+                        th Nome Richiedente
+                    tbody
+                    each pratica in materia_con_gratuito
+                        tr
+                        td
+                            a(href=pratica.url) #{pratica.fascicolo}
+                        td #{pratica.cliente.nome_completo}
+  else
+    .container
+        .row
+            .col-md-offset-2.col-md-8.text-center
+
+                h3 Vuoi veramente eliminare questa materia ?
+
+                form.delete_modulo.text-center(method='POST' action='')
+                    div.form-group
+                        input#id.form-control(type='hidden',name='id', required='true', value=materia._id )
+
+                    button.btn.btn-danger(type='submit') Elimina

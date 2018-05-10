@@ -1,0 +1,57 @@
+extends layout
+
+block content
+
+    .container
+        .row
+            .col-md-offset-2.col-md-8.text-center
+                h1 Cliente: #{cliente.nome_completo}
+                p
+                | #[strong Data di Nascita:] #{cliente.data_di_nascita_formattata} -
+                | #[strong Luogo di Nascita:] #{cliente.luogo_di_nascita}
+                hr
+                a.btn.btn-warning(href=cliente.url+'/delete') Rimuovi Anagrafica
+                a.btn.btn-primary(href=cliente.url+'/update') Aggiorna Anagrafica
+                hr
+
+    .container.text-center
+        h3 #[strong Istanze di Gratuito Patrocinio]
+    .container
+        table.table
+            thead
+                tr
+                    th Fasc.
+                    th Mat.
+                    th Giud.
+                    th Sede
+                    th RG
+                    th Ammissione
+                    th Ist. Liq.
+                    th Data Liq.
+                    th Decr. Liq.
+                    th Data Decr. Liq.
+                    th Fatt.
+                    th Data Fatt.
+                    th Pag.
+                    th Data Pag.
+            tbody
+                each gratuito in pratiche_cliente
+                    tr
+                        td
+                            a(href=gratuito.url) #{gratuito.fascicolo}
+                        td #{gratuito.materia.nome.slice(0,3)}
+                        td #{gratuito.giudice.nome.slice(0,12)}
+                        td #{gratuito.sede.nome.slice(0,3)}
+                        td #{gratuito.rg}
+                        td #{gratuito.ammissione}
+                        td #{gratuito.istanza_liquidazione}
+                        td #{gratuito.data_istanza_liquidazione_formattata}
+                        td #{gratuito.decreto_liquidazione}
+                        td #{gratuito.data_decreto_liquidazione_formattata}
+                        td #{gratuito.fatturazione}
+                        td #{gratuito.data_fattura_formattata}
+                        td #{gratuito.pagamento}
+                        td #{gratuito.data_pagamento_formattata}
+
+                else
+                    h4.pay_attention #[strong Questo Cliente Non Ha Istanze di Gratuito Patrocinio.]

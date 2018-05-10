@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+  br
+  h1.page_title #{title}
+  br
+  .container
+    .row
+      .col-md-offset-3.col-md-6.modulo
+        form(method='POST' action='')
+          div.form-group
+            input#name.form-control(type='text', placeholder='Tribunale, T.A.R, Corte d\'Appello ...' name='nome' required='true' value=(undefined===giudice ? '' : giudice.nome) )
+          button.btn.btn-primary(type='submit') Salva
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
