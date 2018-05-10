@@ -93,6 +93,7 @@ exports.gratuito_create_post = [
                 importo_fattura: req.body.importo_fattura,
                 pagamento: req.body.pagamento,
                 data_pagamento: req.body.data_pagamento,
+                note: req.body.note
             });
 
         if (!errors.isEmpty()) {
