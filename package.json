@@ -1,14 +1,13 @@
 {
   "name": "free-legal-aid",
   "version": "1.0.0",
+  "description": "node express mongodb app to manage free legal aids instances for immigrants in italy",
   "private": true,
-  "description": "Node, Express and MongoDB Project",
-  "main": "app.js",
   "scripts": {
     "start": "nodemon ./bin/www",
+    "devstart": "nodemon ./bin/www"
   },
-  "keywords": [],
-  "author": "Mauro Bono",
+  "author": "mauro bono",
   "license": "MIT",
   "dependencies": {
     "async": "^2.6.0",
