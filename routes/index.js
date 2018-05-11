@@ -56,10 +56,10 @@ router.get('/clienti', clienti_controller.clienti_list);
 /// GRATUITO ROUTES ///
 router.get('/gratuito/create', gratuito_controller.gratuito_create_get);
 router.post('/gratuito/create', gratuito_controller.gratuito_create_post);
-// router.get('/gratuito/:id/delete', gratuito_controller.gratuito_delete_get);
-// router.post('/gratuito/:id/delete', gratuito_controller.gratuito_delete_post);
-// router.get('/gratuito/:id/update', gratuito_controller.gratuito_update_get);
-// router.post('/gratuito/:id/update', gratuito_controller.gratuito_update_post);
+router.get('/gratuito/:id/delete', gratuito_controller.gratuito_delete_get);
+router.post('/gratuito/:id/delete', gratuito_controller.gratuito_delete_post);
+router.get('/gratuito/:id/update', gratuito_controller.gratuito_update_get);
+router.post('/gratuito/:id/update', gratuito_controller.gratuito_update_post);
 router.get('/gratuito/:id', gratuito_controller.gratuito_detail);
 router.get('/gratuito', gratuito_controller.gratuito_list);
 

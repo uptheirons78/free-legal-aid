@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1.page_title= title
+  hr.divider
+  .container-fluid
+    .row
+      .col-md-offset-2.col-md-8.modulo
+        form(method='POST' action='')
+
+          .row
+            h3.text-center.divider Fatturazione e Pagamento
+            div.form-group.col-md-2
+              select#fatturazione.form-control(type='select' name='fatturazione')
+                if gratuito
+                  option(
+                    value=gratuito.fatturazione
+                    selected=(
+                      gratuito.fatturazione.toString()==gratuito.fatturazione
+                    ) ? 'selected' : false
+                ) #{gratuito.fatturazione}
+            div.form-group.col-md-2
+              input#fattura_elettronica.form-control(type='text', placeholder='Fattura Elettronica' name='fattura_elettronica' value=(undefined===gratuito ? '' : gratuito.fattura_elettronica) )
+            div.form-group.col-md-4
+              input#data_fattura.form-control(type='date' name='data_fattura' placeholder='Data Fattura: ' value=(undefined===gratuito ? 'Data Fattura: ' : gratuito.data_fattura_yyyy_mm_dd) )
+            div.form-group.col-md-4
+              input#importo_fattura.form-control(type="number" name="importo_fattura" step="0.01" min="0" placeholder="Importo Fattura es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_fattura) )
+
+          .row
+            div.form-group.col-md-6
+              select#pagamento.form-control(type='select' name='pagamento')
+                option(value='' disabled selected hidden) Stato Pagamento
+                option(value='SI') SI
+                option(value='NO') NO
+            div.form-group.col-md-6
+              input#data_pagamento.form-control(type='date' name='data_pagamento' placeholder='Data Pagamento: ' value=(undefined===gratuito ? 'Data Pagamento: ' : gratuito.data_pagamento_yyyy_mm_dd) )
+          div.form-group
+            textarea#note.form-control(type='textarea' name='note') #{gratuito.note}
+          div.form-group
+            button.btn.btn-primary.btn-lg(type='submit') Salva
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

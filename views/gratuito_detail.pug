@@ -1,20 +1,37 @@
 extends layout
 
 block content
-  h1 #{title}: #{gratuito.fascicolo}
+  .container
+    .row
+      .col-md-offset-2.col-md-8
+        .panel.panel-primary
+          .panel-heading #[strong #{title} Fascicolo: #{gratuito.fascicolo}]
+          ul.list-group
+            li.list-group-item Cliente:
+              a(href=gratuito.cliente.url)  #{gratuito.cliente.nome_completo}
+            li.list-group-item Materia:
+              a(href=gratuito.materia.url)  #{gratuito.materia.nome}
+            li.list-group-item Giudice:
+              a(href=gratuito.giudice.url)  #{gratuito.giudice.nome}
+            li.list-group-item Sede:
+              a(href=gratuito.sede.url)  #{gratuito.sede.nome}
+            li.list-group-item R.G.: #{gratuito.rg}
+            li.list-group-item Data Istanza: #{gratuito.data_istanza_formattata}
+            li.list-group-item Protocollo Istanza: #{gratuito.protocollo_istanza}
+            li.list-group-item Stato Ammissione: #{gratuito.ammissione}
+            li.list-group-item Data Ammissione: #{gratuito.data_ammissione_formattata}
+            li.list-group-item Data Istanza di Liquidazione: #{gratuito.data_istanza_liquidazione_formattata}
+            li.list-group-item Importo Istanza di Liquidazione: #{gratuito.importo_istanza_liquidazione_formattato}
+            li.list-group-item Data Decreto di Liquidazione: #{gratuito.data_decreto_liquidazione_formattata}
+            li.list-group-item Importo Decreto di Liquidazione: #{gratuito.importo_decreto_liquidazione_formattato}
+            li.list-group-item Fattura Elettronica: #{gratuito.fattura_elettronica}
+            li.list-group-item Data Fattura: #{gratuito.data_fattura_formattata}
+            li.list-group-item Importo Fattura: #{gratuito.importo_fattura_formattato}
+            li.list-group-item Data Pagamento: #{gratuito.data_pagamento_formattata}
+            li.list-group-item Note: #{gratuito.note}
 
-  h3 #[strong Cliente:]
-    a(href=gratuito.cliente.url)  #{gratuito.cliente.nome_completo}
-  p #[strong Materia:]
-    a(href=gratuito.materia.url)  #{gratuito.materia.nome}
-  p #[strong Giudice:]
-    a(href=gratuito.giudice.url)  #{gratuito.giudice.nome}
-  p #[strong Sede:]
-    a(href=gratuito.sede.url)  #{gratuito.sede.nome}
-
-
-  hr
-  p
-    a.btn.btn-warning(href=gratuito.url+'/delete') Elimina Pratica
-  p
-    a.btn.btn-primary(href=gratuito.url+'/update') Aggiorna Pratica
+  .container
+    .row
+      .col-md-offset-2.col-md-8.text-center
+        a.btn.btn-warning(href=gratuito.url+'/delete') Rimuovi
+        a.btn.btn-primary(href=gratuito.url+'/update') Aggiorna

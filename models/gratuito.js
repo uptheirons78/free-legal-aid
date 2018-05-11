@@ -22,6 +22,7 @@ const GratuitoSchema = new Schema(
         data_decreto_liquidazione: { type: Date },
         importo_decreto_liquidazione: { type: Number },
         fatturazione: { type: String, default: 'NO', trim: true, uppercase: true },
+        fattura_elettronica: { type: String, trim: true, uppercase: true },
         data_fattura: { type: Date },
         importo_fattura: { type: Number },
         pagamento: { type: String, trim: true, uppercase: true },
@@ -106,10 +107,22 @@ GratuitoSchema
         return moment(this.data_istanza).format('YYYY-MM-DD');
     });
 
-    GratuitoSchema
+GratuitoSchema
     .virtual('data_ammissione_yyyy_mm_dd')
     .get(function () {
         return moment(this.data_ammissione).format('YYYY-MM-DD');
+    });
+
+GratuitoSchema
+    .virtual('data_fattura_yyyy_mm_dd')
+    .get(function () {
+        return moment(this.data_fattura).format('YYYY-MM-DD');
+    });
+
+GratuitoSchema
+    .virtual('data_pagamento_yyyy_mm_dd')
+    .get(function () {
+        return moment(this.data_pagamento).format('YYYY-MM-DD');
     });
 
 module.exports = mongoose.model('Gratuito', GratuitoSchema);

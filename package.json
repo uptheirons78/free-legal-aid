@@ -1,7 +1,7 @@
 {
   "name": "free-legal-aid",
   "version": "1.0.0",
-  "description": "node express mongodb app to manage free legal aids instances for immigrants in italy",
+  "description": "node express mongodb app to manage free legal aids instance for immigrants in italy",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",

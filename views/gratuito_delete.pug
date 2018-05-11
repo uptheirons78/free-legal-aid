@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+  h1.page_title Elimina: #{gratuito.fascicolo}
+
+    .container
+        .row
+            .col-md-offset-2.col-md-8.text-center
+
+                h3 Vuoi veramente eliminare questa pratica ?
+
+                form.delete_modulo.text-center(method='POST' action='')
+                    div.form-group
+                        input#id.form-control(type='hidden',name='id', required='true', value=gratuito._id )
+
+                    button.btn.btn-danger(type='submit') Elimina

@@ -90,7 +90,20 @@ input[type="date"]:focus::before {
 }
 
 /* SELECT STYLE */
-
 select:invalid {
     color: #999;
+}
+
+/* DIVIDER STYLE */
+.divider {
+    margin-bottom: 1%;
+}
+
+hr {
+    width: 50%;
+}
+
+.panel.panel-primary {
+    border: 3px solid #337ab7;
+    margin-top: 50px;
 }

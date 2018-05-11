@@ -13,18 +13,15 @@ block content
         th RG
         th Data Istanza
         th Prot. Ist.
-        th Ammissione
+        th Amm.
         th Data Amm.
-        th Ist. Liq.
         th Data Liq.
         th Imp. Ist. Liq.
-        th Decr. Liq.
         th Data Decr. Liq.
         th Imp. Decr. Liq.
-        th Fatt.
         th Data Fatt.
+        th Fatt. El.
         th Imp. Fatt.
-        th Pag.
         th Data Pag.
     tbody.gratuito-list
       each gratuito in gratuito_list
@@ -38,18 +35,15 @@ block content
           td #{gratuito.rg}
           td #{gratuito.data_istanza_formattata}
           td #{gratuito.protocollo_istanza}
-          td #{gratuito.ammissione}
+          td #{gratuito.ammissione.slice(0,3)}
           td #{gratuito.data_ammissione_formattata}
-          td #{gratuito.istanza_liquidazione}
           td #{gratuito.data_istanza_liquidazione_formattata}
           td #{gratuito.importo_istanza_liquidazione_formattato}
-          td #{gratuito.decreto_liquidazione}
           td #{gratuito.data_decreto_liquidazione_formattata}
           td #{gratuito.importo_decreto_liquidazione_formattato}
-          td #{gratuito.fatturazione}
           td #{gratuito.data_fattura_formattata}
+          td #{gratuito.fattura_elettronica}
           td #{gratuito.importo_fattura_formattato}
-          td #{gratuito.pagamento}
           td #{gratuito.data_pagamento_formattata}
 
 

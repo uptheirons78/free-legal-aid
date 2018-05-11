@@ -1,125 +1,140 @@
 extends layout
 
 block content
-  br
   h1.page_title= title
-  br
-  .container
+  hr.divider
+  .container-fluid
     .row
-      .col-md-offset-3.col-md-6.modulo
+      .col-md-offset-2.col-md-8.modulo
         form(method='POST' action='')
-          div.form-group
-            input#fascicolo.form-control(type='text', placeholder='Numero di Fascicolo' name='fascicolo' required='true' value=(undefined===gratuito ? '' : gratuito.fascicolo) )
-          div.form-group
-            input#cliente.form-control(list='clienti', placeholder='Cliente' name='cliente' required='true' )
-            datalist#clienti
-              for cliente in clienti
-                if gratuito
-                  option(
-                    value=cliente._id
-                    selected=(
-                      cliente._id.toString()==gratuito.cliente._id
-                      || cliente._id.toString()==gratuito.cliente
-                    ) ? 'selected' : false
-                  ) #{cliente.nome_completo}
-                else
-                  option(value=cliente._id) #{cliente.nome_completo}
-          div.form-group
-            input#rg.form-control(type='text', placeholder='Numero di Registro' name='rg' value=(undefined===gratuito ? '' : gratuito.rg) )
-          div.form-group
-            select#materia.form-control(type='select' name='materia' required='true' )
-              option(value="" disabled selected hidden) Materia
-              for materia in materie
-                if gratuito
-                  option(
-                    value=materia._id
-                    selected=(
-                      materia._id.toString()==gratuito.materia._id
-                      || materia._id.toString()==gratuito.materia
-                    ) ? 'selected' : false
-                  ) #{materia.nome}
-                else
-                  option(value=materia._id) #{materia.nome}
-          div.form-group
-            select#giudice.form-control(type='select' name='giudice' required='true' )
-              option(value="" disabled selected hidden) Giudice o Grado
-              for giudice in giudici
-                if gratuito
-                  option(
-                    value=giudice._id
-                    selected=(
-                      giudice._id.toString()==gratuito.giudice._id
-                      || giudice._id.toString()==gratuito.giudice
-                    ) ? 'selected' : false
-                  ) #{giudice.nome}
-                else
-                  option(value=giudice._id) #{giudice.nome}
-          div.form-group
-            select#sede.form-control(type='select' name='sede' required='true' )
-              option(value="" disabled selected hidden) Sede
-              for sede in sedi
-                if gratuito
-                  option(
-                    value=sede._id
-                    selected=(
-                      sede._id.toString()==gratuito.sede._id
-                      || sede._id.toString()==gratuito.sede
-                    ) ? 'selected' : false
-                  ) #{sede.nome}
-                else
-                  option(value=sede._id) #{sede.nome}
+          .row
+            h3.text-center.divider Fascicolo
+            div.form-group.col-md-4
+              input#fascicolo.form-control(type='text', placeholder='Numero di Fascicolo' name='fascicolo' required='true' value=(undefined===gratuito ? '' : gratuito.fascicolo) )
+            div.form-group.col-md-8
+              input#cliente.form-control(list='clienti', placeholder='Cliente' name='cliente' required='true' )
+              datalist#clienti
+                for cliente in clienti
+                  if gratuito
+                    option(
+                      value=cliente._id
+                      selected=(
+                        cliente._id.toString()==gratuito.cliente._id
+                        || cliente._id.toString()==gratuito.cliente
+                      ) ? 'selected' : false
+                    ) #{cliente.nome_completo}
+                  else
+                    option(value=cliente._id) #{cliente.nome_completo}
+          .row
+            div.form-group.col-md-3
+              input#rg.form-control(type='text', placeholder='R.G.' name='rg' value=(undefined===gratuito ? '' : gratuito.rg) )
+            div.form-group.col-md-3
+              select#materia.form-control(type='select' name='materia' required='true' )
+                option(value="" disabled selected hidden) Materia
+                for materia in materie
+                  if gratuito
+                    option(
+                      value=materia._id
+                      selected=(
+                        materia._id.toString()==gratuito.materia._id
+                        || materia._id.toString()==gratuito.materia
+                      ) ? 'selected' : false
+                    ) #{materia.nome}
+                  else
+                    option(value=materia._id) #{materia.nome}
+            div.form-group.col-md-3
+              select#giudice.form-control(type='select' name='giudice' required='true' )
+                option(value="" disabled selected hidden) Giudice o Grado
+                for giudice in giudici
+                  if gratuito
+                    option(
+                      value=giudice._id
+                      selected=(
+                        giudice._id.toString()==gratuito.giudice._id
+                        || giudice._id.toString()==gratuito.giudice
+                      ) ? 'selected' : false
+                    ) #{giudice.nome}
+                  else
+                    option(value=giudice._id) #{giudice.nome}
+            div.form-group.col-md-3
+              select#sede.form-control(type='select' name='sede' required='true' )
+                option(value="" disabled selected hidden) Sede
+                for sede in sedi
+                  if gratuito
+                    option(
+                      value=sede._id
+                      selected=(
+                        sede._id.toString()==gratuito.sede._id
+                        || sede._id.toString()==gratuito.sede
+                      ) ? 'selected' : false
+                    ) #{sede.nome}
+                  else
+                    option(value=sede._id) #{sede.nome}
 
-          div.form-group
-            input#data_istanza.form-control(type='date' name='data_istanza' placeholder='Data Istanza GP: ' value=(undefined===gratuito ? 'Data Istanza GP: ' : gratuito.data_istanza_yyyy_mm_dd) )
-          div.form-group
-            input#protocollo_istanza.form-control(type='text', placeholder='Numero di Protocollo' name='protocollo_istanza' value=(undefined===gratuito ? '' : gratuito.protocollo_istanza) )
-          div.form-group
-            select#ammissione.form-control(type='select' name='ammissione' required)
-              option(value='Stato Ammissione' disabled selected hidden) Stato Ammissione
-              option(value='AMMESSO') AMMESSO
-              option(value='NON AMMESSO') NON AMMESSO
-          div.form-group
-            input#data_ammissione.form-control(type='date' name='data_ammissione' placeholder='Data Ammissione GP: ' value=(undefined===gratuito ? 'Data Ammissione GP: ' : gratuito.data_istanza_yyyy_mm_dd) )
+          .row
+            h3.text-center.divider Gratuito Patrocinio
+            div.form-group.col-md-3
+              input#data_istanza.form-control(type='date' name='data_istanza' placeholder='Data Istanza GP: ' value=(undefined===gratuito ? 'Data Istanza GP: ' : gratuito.data_istanza_yyyy_mm_dd) )
+            div.form-group.col-md-3
+              input#protocollo_istanza.form-control(type='text', placeholder='Numero di Protocollo' name='protocollo_istanza' value=(undefined===gratuito ? '' : gratuito.protocollo_istanza) )
+            div.form-group.col-md-3
+              select#ammissione.form-control(type='select' name='ammissione' required)
+                option(value='Stato Ammissione' disabled selected hidden) Stato Ammissione
+                option(value='AMMESSO') AMMESSO
+                option(value='NON AMMESSO') NON AMMESSO
+            div.form-group.col-md-3
+              input#data_ammissione.form-control(type='date' name='data_ammissione' placeholder='Data Ammissione GP: ' value=(undefined===gratuito ? 'Data Ammissione GP: ' : gratuito.data_istanza_yyyy_mm_dd) )
 
-          div.form-group
-            select#istanza_liquidazione.form-control(type='select' name='istanza_liquidazione')
-              option(value="" disabled selected hidden) Stato Istanza di Liquidazione
-              option(value='SI') SI
-              option(value='NO') NO
-          div.form-group
-            input#data_istanza_liquidazione.form-control(type='date' name='data_istanza_liquidazione' placeholder='Data Istanza di Liquidazione: ' value=(undefined===gratuito ? 'Data Istanza di Liquidazione' : gratuito.data_istanza_liquidazione) )
-          div.form-group
-            input#importo_istanza_liquidazione.form-control(type="number" name="importo_istanza_liquidazione" step="0.01" min="0" placeholder="Importo es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_istanza_liquidazione) )
+          .row
+            h3.text-center.divider Istanza e Decreto di Liquidazione
+            div.form-group.col-md-4
+              select#istanza_liquidazione.form-control(type='select' name='istanza_liquidazione')
+                option(value="" disabled selected hidden) Stato Istanza di Liquidazione
+                option(value='SI') SI
+                option(value='NO') NO
+            div.form-group.col-md-4
+              input#data_istanza_liquidazione.form-control(type='date' name='data_istanza_liquidazione' placeholder='Data Istanza di Liquidazione: ' value=(undefined===gratuito ? 'Data Istanza di Liquidazione' : gratuito.data_istanza_liquidazione) )
+            div.form-group.col-md-4
+              input#importo_istanza_liquidazione.form-control(type="number" name="importo_istanza_liquidazione" step="0.01" min="0" placeholder="Importo Istanza di Liquidazione es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_istanza_liquidazione) )
 
-          div.form-group
-            select#decreto_liquidazione.form-control(type='select' name='decreto_liquidazione')
-              option(value="" disabled selected hidden) Stato Decreto di Liquidazione
-              option(value='SI') SI
-              option(value='NO') NO
-          div.form-group
-            input#data_decreto_liquidazione.form-control(type='date' name='data_decreto_liquidazione' placeholder='Data Decreto di Liquidazione: ' value=(undefined===gratuito ? 'Data Decreto di Liquidazione: ' : gratuito.data_decreto_liquidazione) )
-          div.form-group
-            input#importo_decreto_liquidazione.form-control(type="number" name="importo_decreto_liquidazione" step="0.01" min="0" placeholder="Importo Decreto di Liquidazione es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_decreto_liquidazione) )
-          div.form-group
-            select#fatturazione.form-control(type='select' name='fatturazione')
-              option(value='' disabled selected hidden) Stato Fatturazione
-              option(value='SI') SI
-              option(value='NO') NO
-          div.form-group
-            input#data_fattura.form-control(type='date' name='data_fattura' placeholder='Data Fattura: ' value=(undefined===gratuito ? 'Data Fattura: ' : gratuito.data_fattura) )
-          div.form-group
-            input#importo_fattura.form-control(type="number" name="importo_fattura" step="0.01" min="0" placeholder="Importo Fattura es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_fattura) )
-          div.form-group
-            select#pagamento.form-control(type='select' name='pagamento')
-              option(value='' disabled selected hidden) Stato Pagamento
-              option(value='SI') SI
-              option(value='NO') NO
-          div.form-group
-            input#data_pagamento.form-control(type='date' name='data_pagamento' placeholder='Data Pagamento: ' value=(undefined===gratuito ? 'Data Pagamento: ' : gratuito.data_pagamento) )
+          .row
+            div.form-group.col-md-4
+              select#decreto_liquidazione.form-control(type='select' name='decreto_liquidazione')
+                option(value="" disabled selected hidden) Stato Decreto di Liquidazione
+                option(value='SI') SI
+                option(value='NO') NO
+            div.form-group.col-md-4
+              input#data_decreto_liquidazione.form-control(type='date' name='data_decreto_liquidazione' placeholder='Data Decreto di Liquidazione: ' value=(undefined===gratuito ? 'Data Decreto di Liquidazione: ' : gratuito.data_decreto_liquidazione) )
+            div.form-group.col-md-4
+              input#importo_decreto_liquidazione.form-control(type="number" name="importo_decreto_liquidazione" step="0.01" min="0" placeholder="Importo Decreto di Liquidazione es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_decreto_liquidazione) )
+
+          .row
+            h3.text-center.divider Fatturazione e Pagamento
+            div.form-group.col-md-2
+              select#fatturazione.form-control(type='select' name='fatturazione')
+                option(value='' disabled selected hidden) Stato Fatturazione
+                option(value='SI') SI
+                option(value='NO') NO
+            div.form-group.col-md-2
+              input#fattura_elettronica.form-control(type='text', placeholder='Fattura Elettronica' name='fattura_elettronica' value=(undefined===gratuito ? '' : gratuito.fattura_elettronica) )
+            div.form-group.col-md-4
+              input#data_fattura.form-control(type='date' name='data_fattura' placeholder='Data Fattura: ' value=(undefined===gratuito ? 'Data Fattura: ' : gratuito.data_fattura) )
+            div.form-group.col-md-4
+              input#importo_fattura.form-control(type="number" name="importo_fattura" step="0.01" min="0" placeholder="Importo Fattura es. 500.99" value=(undefined===gratuito ? '' : gratuito.importo_fattura) )
+
+          .row
+            div.form-group.col-md-6
+              select#pagamento.form-control(type='select' name='pagamento')
+                option(value='' disabled selected hidden) Stato Pagamento
+                option(value='SI') SI
+                option(value='NO') NO
+            div.form-group.col-md-6
+              input#data_pagamento.form-control(type='date' name='data_pagamento' placeholder='Data Pagamento: ' value=(undefined===gratuito ? 'Data Pagamento: ' : gratuito.data_pagamento) )
+
           div.form-group
             textarea#note.form-control(type='textarea' name='note' placeholder='Note' value=(undefined===gratuito ? '' : gratuito.note) )
           div.form-group
-            button.btn.btn-primary(type='submit') Salva
+            button.btn.btn-primary.btn-lg(type='submit') Salva
 
   if errors
     ul
