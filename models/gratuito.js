@@ -25,7 +25,7 @@ const GratuitoSchema = new Schema(
         fattura_elettronica: { type: String, trim: true, uppercase: true },
         data_fattura: { type: Date },
         importo_fattura: { type: Number },
-        pagamento: { type: String, trim: true, uppercase: true },
+        pagamento: { type: String, default: 'NO', trim: true, uppercase: true },
         data_pagamento: { type: Date },
         note: {type: String, trim: true, uppercase: true}
     }
@@ -111,6 +111,18 @@ GratuitoSchema
     .virtual('data_ammissione_yyyy_mm_dd')
     .get(function () {
         return moment(this.data_ammissione).format('YYYY-MM-DD');
+    });
+
+GratuitoSchema
+    .virtual('data_istanza_liquidazione_yyyy_mm_dd')
+    .get(function () {
+        return moment(this.data_istanza_liquidazione).format('YYYY-MM-DD');
+    });
+
+GratuitoSchema
+    .virtual('data_decreto_liquidazione_yyyy_mm_dd')
+    .get(function () {
+        return moment(this.data_decreto_liquidazione).format('YYYY-MM-DD');
     });
 
 GratuitoSchema

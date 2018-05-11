@@ -173,11 +173,15 @@ exports.gratuito_delete_post = async (req, res) => {
 exports.gratuito_update_get = async (req, res) => {
     try {
         const gratuito = await Gratuito.findById(req.params.id).populate('cliente').populate('materia').populate('giudice').populate('sede');
+        const clienti = await Cliente.find();
+        const materie = await Materia.find();
+        const giudici = await Giudice.find();
+        const sedi = await Sede.find();
         if (gratuito == null) {
             res.status(404).send('Pratica Non Trovata!');
             return;
         }
-        res.render('gratuito_update', { title: 'Modifica Pratica', gratuito });
+        res.render('gratuito_update', { title: 'Modifica Pratica', gratuito, clienti, materie, giudici, sedi });
     }
     catch (err) {
         err => res.status(400).send(err);
