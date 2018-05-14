@@ -1,11 +1,15 @@
-/* BODY */
+/* HTML and BODY */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    height: 100%;
+    width: 100%;
 }
 /* NAVBAR STYLE */
 .navbar-inverse {
-    background-color: #286090;
-    border-color: #286090;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    padding: 1% 2%;
+    font-size: 1.1em;
 }
 
 .navbar-inverse .navbar-brand {
@@ -43,6 +47,15 @@ body {
     border-radius: 7px;
     text-align: center;
     text-transform: uppercase;
+}
+
+.home_page_title {
+    background-color: #337ab7;
+    text-align: center;
+    color: white;
+    margin: 200px auto;
+    padding: 10px 20px;
+    width: 50%;
 }
 
 /* FORMS STYLE */
@@ -105,5 +118,7 @@ hr {
 
 .panel.panel-primary {
     border: 3px solid #337ab7;
-    margin-top: 50px;
+    margin-top: 20px;
+    font-size: 14px;
 }
+

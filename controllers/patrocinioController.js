@@ -5,7 +5,6 @@ const Giudice = require('../models/giudice');
 const Sede = require('../models/sede');
 const { body, validationResult } = require("express-validator/check");
 const { sanitizeBody } = require("express-validator/filter");
-const _async = require('async');
 
 // Mostra tutte le pratiche di gratuito patrocinio
 exports.gratuito_list = function (req, res, next) {
@@ -58,22 +57,17 @@ exports.gratuito_create_post = [
     body('giudice', 'Il campo giudice non deve essere vuoto').isLength({ min: 1 }).trim(),
     body('sede', 'Il campo sede non deve essere vuoto').isLength({ min: 1 }).trim(),
     body('data_istanza', 'Data Invalida').optional({ checkFalsy: true }).isISO8601(),
-
-
-    // Sanitize fields (using wildcard).
+    // Sanitizza i campi richiesti - non tutti, soltanto i necessari.
     sanitizeBody('fascicolo').trim().escape(),
     sanitizeBody('cliente').trim().escape(),
     sanitizeBody('materia').trim().escape(),
     sanitizeBody('giudice').trim().escape(),
     sanitizeBody('sede').trim().escape(),
     sanitizeBody('data_istanza').toDate(),
-
-    // Process request after validation and sanitization.
-    (req, res, next) => {
-
-        // Extract the validation errors from a request.
+    // Dopo la validazione e sanitizzazione dei campi, processa la richiesta
+    async (req, res, next) => {
+        // Estrae eventuali errori.
         const errors = validationResult(req);
-
         // Crea un oggetto Gratuito Patrocinio con i dati validati e corretti.
         let gratuito = new Gratuito(
             {
@@ -101,36 +95,26 @@ exports.gratuito_create_post = [
                 data_pagamento: req.body.data_pagamento,
                 note: req.body.note
             });
-
         if (!errors.isEmpty()) {
-            // There are errors. Render form again with sanitized values/error messages.
-            // Get all authors and genres for form.
-            _async.parallel({
-                clienti: function (callback) {
-                    Cliente.find(callback);
-                },
-                materie: function (callback) {
-                    Materia.find(callback);
-                },
-                giudici: function (callback) {
-                    Giudice.find(callback);
-                },
-                sedi: function (callback) {
-                    Sede.find(callback);
-                },
-            }, function (err, results) {
-                if (err) { return next(err); }
-                let { clienti, materie, giudici, sedi } = results;
+            // Ci sono errori e rende nuovamente il modulo con valori sanitizzati o validati, oppure messaggi di errore.
+            // Estrae tutti i valori necessari per il modulo.
+            try {
+                const clienti = await Cliente.find();
+                const materie = await Materia.find();
+                const giudici = await Giudice.find();
+                const sedi = await Sede.find();
                 res.render('gratuito_form', { title: 'Nuova Pratica di Gratuito Patrocinio', clienti, materie, giudici, sedi, gratuito, errors: errors.array() });
-            });
-            return;
+                return;
+            }
+            catch(err) {
+                err => res.status(400).send(err);
+            }
         }
         else {
             // I dati del modulo sono corretti, salviamoli
             gratuito.save(function (err) {
                 if (err) { return next(err); }
-                //successful - redirect to new book record.
-                console.log(gratuito);
+                //in caso di successo fa il redirect alla pagina dettaglio della pratica.
                 res.redirect(gratuito.url);
             });
         }
@@ -205,11 +189,9 @@ exports.gratuito_update_post = [
     sanitizeBody('sede').trim().escape(),
     sanitizeBody('data_istanza').toDate(),
 
-    // Process request after validation and sanitization.
-    (req, res, next) => {
-        // Extract the validation errors from a request .
+    async (req, res, next) => {
         const errors = validationResult(req);
-        // Create a genre object with escaped and trimmed data (and the old id!)
+
         let gratuito = new Gratuito(
             {
                 fascicolo: req.body.fascicolo,
@@ -239,32 +221,22 @@ exports.gratuito_update_post = [
             });
 
         if (!errors.isEmpty()) {
-            // There are errors. Render the form again with sanitized values and error messages.
-            _async.parallel({
-                clienti: function (callback) {
-                    Cliente.find(callback);
-                },
-                materie: function (callback) {
-                    Materia.find(callback);
-                },
-                giudici: function (callback) {
-                    Giudice.find(callback);
-                },
-                sedi: function (callback) {
-                    Sede.find(callback);
-                },
-            }, function (err, results) {
-                if (err) { return next(err); }
-                let { clienti, materie, giudici, sedi } = results;
+            try {
+                const clientiPromise = Cliente.find();
+                const materiaPromise = Materia.find();
+                const giudiciPromise = Giudice.find();
+                const sediPromise = Sede.find();
+
+                const [clienti, materie, giudici, sedi] = await Promise.All([clientiPromise, materiaPromise, giudiciPromise, sediPromise]);
                 res.render('gratuito_update', { title: 'Modifica Pratica', clienti, materie, giudici, sedi, gratuito, errors: errors.array() });
-            });
-            return;
+            }
+            catch(err) {
+                err => res.status(400).send(err);
+            }
         }
         else {
-            // Data from form is valid. Update the record.
             Gratuito.findByIdAndUpdate(req.params.id, gratuito, {}, function (err, la_pratica) {
                 if (err) { return next(err); }
-                // Successful - redirect to genre detail page.
                 res.redirect(la_pratica.url);
             });
         }

@@ -3,7 +3,6 @@ const Gratuito = require('../models/gratuito');
 const { body, validationResult } = require("express-validator/check");
 const { sanitizeBody } = require("express-validator/filter");
 
-// Display list of all Authors.
 exports.clienti_list = function (req, res, next) {
     Cliente.find()
         .sort({ 'cognome': 1 })
@@ -13,7 +12,6 @@ exports.clienti_list = function (req, res, next) {
         });
 };
 
-// Mostra la pagina di dettaglio per ogni specifico cliente.
 exports.clienti_detail = async (req, res) => {
     try {
         const cliente = await Cliente.findById(req.params.id);
@@ -28,15 +26,12 @@ exports.clienti_detail = async (req, res) => {
     }
 };
 
-// Display Author create form on GET.
 exports.clienti_create_get = function (req, res) {
     res.render('clienti_form', { title: 'Nuova Anagrafica Cliente' });
 };
 
-// Handle Author create on POST.
 exports.clienti_create_post = [
 
-    // Validate fields.
     body('nome').isLength({ min: 1 }).trim().withMessage('Il Nome deve essere specificato!')
         .isAlphanumeric().withMessage('First name has non-alphanumeric characters.'),
     body('cognome').isLength({ min: 1 }).trim().withMessage('Il Cognome deve essere specificato!')
@@ -45,27 +40,19 @@ exports.clienti_create_post = [
     body('luogo_di_nascita').isLength({ min: 1 }).trim().withMessage('Il Luogo di Nascita deve essere specificato!')
         .isAlphanumeric().withMessage('Place of Birth has non-alphanumeric characters.'),
 
-    // Sanitize fields.
     sanitizeBody('nome').trim().escape(),
     sanitizeBody('cognome').trim().escape(),
     sanitizeBody('data_di_nascita').toDate(),
     sanitizeBody('luogo_di_nascita').trim().escape(),
 
-    // Process request after validation and sanitization.
     (req, res, next) => {
-
-        // Extract the validation errors from a request.
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            // There are errors. Render form again with sanitized values/errors messages.
             res.render('clienti_form', { title: 'Nuova Anagrafica Cliente', cliente: req.body, errors: errors.array() });
             return;
         }
         else {
-            // Data from form is valid.
-
-            // Create an Author object with escaped and trimmed data.
             let cliente = new Cliente(
                 {
                     nome: req.body.nome,
@@ -82,7 +69,6 @@ exports.clienti_create_post = [
     }
 ];
 
-// Mostra modulo ELIMINA CLIENTE on GET.
 exports.clienti_delete_get = async (req, res) => {
     try {
         const cliente = await Cliente.findById(req.params.id);
@@ -98,7 +84,6 @@ exports.clienti_delete_get = async (req, res) => {
     }
 };
 
-// Gestione ELIMINA CLIENTE on POST.
 exports.clienti_delete_post = async (req, res) => {
     try {
         const cliente = Cliente.findById(req.params.id);
@@ -123,7 +108,6 @@ exports.clienti_delete_post = async (req, res) => {
     }
 };
 
-// Mostra modulo AGGIORNA CLIENTE on GET.
 exports.clienti_update_get = async (req, res) => {
     try {
         const cliente = await Cliente.findById(req.params.id);
@@ -138,24 +122,20 @@ exports.clienti_update_get = async (req, res) => {
     }
 };
 
-// Gestisce AGGIORNAMENTO ANAGRAFICA CLIENTE on POST.
 exports.clienti_update_post = [
-    // Valida i differenti campi
+
     body('nome', 'Il nome del cliente è necessario!').isLength({ min: 1 }).trim(),
     body('cognome', 'Il cognome del cliente è necessario!').isLength({ min: 1 }).trim(),
     body('data_di_nascita', 'Data di nascita non valida!').optional({ checkFalsy: true }).isISO8601(),
     body('luogo_di_nascita', 'Il luogo di nascita del cliente è necessario!').isLength({ min: 1 }).trim(),
-    // Sanitizza i campi
+
     sanitizeBody('nome').trim().escape(),
     sanitizeBody('cognome').trim().escape(),
     sanitizeBody('data_di_nascita').toDate(),
     sanitizeBody('luogo_di_nascita').trim().escape(),
 
-    // Process request after validation and sanitization.
     (req, res, next) => {
-        // Extract the validation errors from a request .
         const errors = validationResult(req);
-        // Create a genre object with escaped and trimmed data (and the old id!)
         let cliente = new Cliente(
             {
                 nome: req.body.nome,
@@ -167,15 +147,12 @@ exports.clienti_update_post = [
         );
 
         if (!errors.isEmpty()) {
-            // There are errors. Render the form again with sanitized values and error messages.
             res.render('clienti_form', { title: 'Modifica Cliente', cliente, errors: errors.array() });
             return;
         }
         else {
-            // Data from form is valid. Update the record.
             Cliente.findByIdAndUpdate(req.params.id, cliente, {}, function (err, il_cliente) {
                 if (err) { return next(err); }
-                // Successful - redirect to genre detail page.
                 res.redirect(il_cliente.url);
             });
         }
