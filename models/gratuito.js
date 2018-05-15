@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require("moment");
+const currencyFormatter = require('currency-formatter');
 
 const Schema = mongoose.Schema;
 
@@ -31,6 +32,7 @@ const GratuitoSchema = new Schema(
     }
 );
 
+// Virtual per URL della pratica di gratuito patrocinio specifica
 GratuitoSchema
     .virtual('url')
     .get(function () {
@@ -44,7 +46,7 @@ GratuitoSchema
         if(this.importo_fattura==null) {
             return '-';
         }
-        return '€ ' + this.importo_fattura;
+        return currencyFormatter.format(this.importo_fattura, { locale: 'it'});
     });
 
 GratuitoSchema
@@ -53,7 +55,7 @@ GratuitoSchema
         if(this.importo_decreto_liquidazione==null) {
             return '-';
         }
-        return '€ ' + this.importo_decreto_liquidazione;
+        return currencyFormatter.format(this.importo_decreto_liquidazione, { locale: 'it'});
     });
 
 GratuitoSchema
@@ -62,9 +64,10 @@ GratuitoSchema
         if(this.importo_istanza_liquidazione==null) {
             return '-';
         }
-        return '€ ' + this.importo_istanza_liquidazione;
+        return currencyFormatter.format(this.importo_istanza_liquidazione, { locale: 'it'});
     });
 
+// Virtual per le date
 GratuitoSchema
     .virtual('data_istanza_formattata')
     .get(function () {

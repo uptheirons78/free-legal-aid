@@ -8,8 +8,8 @@ body {
 .navbar-inverse {
     background-color: #337ab7;
     border-color: #337ab7;
-    padding: 1% 2%;
-    font-size: 1.1em;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 .navbar-inverse .navbar-brand {
