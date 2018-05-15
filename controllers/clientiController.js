@@ -32,13 +32,10 @@ exports.clienti_create_get = function (req, res) {
 
 exports.clienti_create_post = [
 
-    body('nome').isLength({ min: 1 }).trim().withMessage('Il Nome deve essere specificato!')
-        .isAlphanumeric().withMessage('First name has non-alphanumeric characters.'),
-    body('cognome').isLength({ min: 1 }).trim().withMessage('Il Cognome deve essere specificato!')
-        .isAlphanumeric().withMessage('Family name has non-alphanumeric characters.'),
+    body('nome').isLength({ min: 1 }).trim().withMessage('Il Nome deve essere specificato!'),
+    body('cognome').isLength({ min: 1 }).trim().withMessage('Il Cognome deve essere specificato!'),
     body('data_di_nascita', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601(),
-    body('luogo_di_nascita').isLength({ min: 1 }).trim().withMessage('Il Luogo di Nascita deve essere specificato!')
-        .isAlphanumeric().withMessage('Place of Birth has non-alphanumeric characters.'),
+    body('luogo_di_nascita').isLength({ min: 1 }).trim().withMessage('Il Luogo di Nascita deve essere specificato!'),
 
     sanitizeBody('nome').trim().escape(),
     sanitizeBody('cognome').trim().escape(),

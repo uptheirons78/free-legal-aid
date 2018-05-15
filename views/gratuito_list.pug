@@ -35,7 +35,10 @@ block content
           td #{gratuito.rg}
           td #{gratuito.data_istanza_formattata}
           td #{gratuito.protocollo_istanza}
-          td #{gratuito.ammissione.slice(0,3)}
+          if gratuito.ammissione == 'NON AMMESSO'
+            td.red #{gratuito.ammissione.slice(0,3)}
+          else
+            td #{gratuito.ammissione.slice(0,3)}
           td #{gratuito.data_ammissione_formattata}
           td #{gratuito.data_istanza_liquidazione_formattata}
           td #{gratuito.importo_istanza_liquidazione_formattato}
