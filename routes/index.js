@@ -9,9 +9,10 @@ const gratuito_controller = require('../controllers/patrocinioController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  //res.redirect('/catalog');
   res.render('index', {title: 'Free Legal Aid'});
 });
+
+router.get('/diniego', gratuito_controller.non_amesso);
 
 /// MATERIA ROUTES ///
 router.get('/materia/create', materia_controller.materia_create_get);

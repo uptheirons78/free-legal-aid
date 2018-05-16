@@ -20,6 +20,23 @@ exports.gratuito_list = function (req, res, next) {
         })
 };
 
+// Mostra SOLTANTO le pratiche di gratuito patrocinio con status: NON AMMESSO
+exports.non_amesso = async (req, res, next) => {
+    try {
+        const list_gratuito = await Gratuito.find({ 'ammissione': 'NON AMMESSO' })
+            .populate('cliente')
+            .populate('materia')
+            .populate('giudice')
+            .populate('sede')
+            .sort({'fascicolo': 1});
+
+            res.render('gratuito_list', { title: 'Lista di Pratiche con Gratuito Patrocinio: NON AMMESSO', gratuito_list: list_gratuito });
+    }
+    catch(err) {
+        err => res.status(400).send(err);
+    }
+};
+
 // Mostra pagina dettaglio singola pratica di gratuito patrocinio
 exports.gratuito_detail = async (req, res) => {
     try {
