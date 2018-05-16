@@ -2,6 +2,12 @@ extends layout
 
 block content
   h1.page_title= title
+  div.text-center
+    form(action='/gratuito' method='GET')
+      div
+        input(type='text' name='search' placeholder='Ricerca Pratica ...')
+        input(type='submit' value='Search')
+
   table.table
     thead
       tr

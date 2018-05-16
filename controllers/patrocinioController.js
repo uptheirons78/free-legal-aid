@@ -8,16 +8,40 @@ const { sanitizeBody } = require("express-validator/filter");
 
 // Mostra tutte le pratiche di gratuito patrocinio
 exports.gratuito_list = function (req, res, next) {
-    Gratuito.find({})
-        .populate('cliente')
-        .populate('materia')
-        .populate('giudice')
-        .populate('sede')
-        .sort({'fascicolo': 1})
-        .exec((err, list_gratuito) => {
-            if (err) { return next(err); }
-            res.render('gratuito_list', { title: 'Lista di Pratiche con Gratuito Patrocinio', gratuito_list: list_gratuito });
-        })
+    let noMatch = null;
+    if (req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+
+        Gratuito.find({ $or: [{ fascicolo: regex }, { rg: regex }] })
+            .populate('cliente')
+            .populate('materia')
+            .populate('giudice')
+            .populate('sede')
+            .sort({ 'fascicolo': 1 })
+            .exec((err, list_gratuito) => {
+                if (err) {
+                    return next(err);
+                }
+                else {
+                    res.render('gratuito_list', { title: 'Lista di Pratiche con Gratuito Patrocinio', gratuito_list: list_gratuito });
+                    if (list_gratuito.length < 1) {
+                        noMatch = "No gratuito, please try again.";
+                    }
+                }
+            });
+    }
+    else {
+        Gratuito.find({})
+            .populate('cliente')
+            .populate('materia')
+            .populate('giudice')
+            .populate('sede')
+            .sort({'fascicolo': 1})
+            .exec((err, list_gratuito) => {
+                if (err) { return next(err); }
+                res.render('gratuito_list', { title: 'Lista di Pratiche con Gratuito Patrocinio', gratuito_list: list_gratuito });
+            });
+    }
 };
 
 // Mostra SOLTANTO le pratiche di gratuito patrocinio con status: NON AMMESSO
@@ -259,3 +283,7 @@ exports.gratuito_update_post = [
         }
     }
 ];
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
