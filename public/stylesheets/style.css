@@ -126,3 +126,9 @@ hr {
     color: red;
     font-weight: bold;
 }
+
+/* style buttons inside navbar */
+ul.nav.navbar-nav.navbar-right li a.btn.btn-warning {
+    padding: 8px;
+    font-weight: bold;
+}

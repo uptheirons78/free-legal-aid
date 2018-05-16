@@ -10,8 +10,9 @@ block content
                 | #[strong Data di Nascita:] #{cliente.data_di_nascita_formattata} -
                 | #[strong Luogo di Nascita:] #{cliente.luogo_di_nascita}
                 hr
-                a.btn.btn-warning(href=cliente.url+'/delete') Rimuovi Anagrafica
-                a.btn.btn-primary(href=cliente.url+'/update') Aggiorna Anagrafica
+                a.btn.btn-warning(href=cliente.url+'/delete') Rimuovi
+                a.btn.btn-primary(href=cliente.url+'/update') Aggiorna
+                a.btn.btn-success(href='/gratuito/create') Aggiungi Pratica
                 hr
 
     .container.text-center

@@ -4,9 +4,10 @@ html(lang='it')
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-3.3.7-dist/css/bootstrap.min.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='/stylesheets/bootstrap-3.3.7-dist/js/bootstrap.min.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     nav.navbar.navbar-inverse
@@ -52,6 +53,16 @@ html(lang='it')
                   a(href='/clienti/create') Aggiungi Anagrafica Cliente
                 li
                   a(href='/gratuito/create') Aggiungi Pratica
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.btn.btn-warning.btn-sm(href='/clienti/create')
+                span.glyphicon.glyphicon-user
+                |  Nuovo Cliente
+            li
+              a.btn.btn-warning.btn-sm(href='/gratuito/create')
+                span.glyphicon.glyphicon-file
+                |  Nuova Pratica
+
 
 
 
