@@ -71,37 +71,37 @@ GratuitoSchema
 GratuitoSchema
     .virtual('data_istanza_formattata')
     .get(function () {
-        return this.data_istanza ? moment(this.data_istanza).format('DD-MM-YYYY') : '';
+        return this.data_istanza ? moment(this.data_istanza).format('DD-MM-YYYY') : '-';
     });
 
 GratuitoSchema
     .virtual('data_ammissione_formattata')
     .get(function () {
-        return this.data_ammissione ? moment(this.data_ammissione).format('DD-MM-YYYY') : '';
+        return this.data_ammissione ? moment(this.data_ammissione).format('DD-MM-YYYY') : '-';
     });
 
 GratuitoSchema
     .virtual('data_istanza_liquidazione_formattata')
     .get(function () {
-        return this.data_istanza_liquidazione ? moment(this.data_istanza_liquidazione).format('DD-MM-YYYY') : '';
+        return this.data_istanza_liquidazione ? moment(this.data_istanza_liquidazione).format('DD-MM-YYYY') : '-';
     });
 
 GratuitoSchema
     .virtual('data_decreto_liquidazione_formattata')
     .get(function () {
-        return this.data_decreto_liquidazione ? moment(this.data_decreto_liquidazione).format('DD-MM-YYYY') : '';
+        return this.data_decreto_liquidazione ? moment(this.data_decreto_liquidazione).format('DD-MM-YYYY') : '-';
     });
 
 GratuitoSchema
     .virtual('data_fattura_formattata')
     .get(function () {
-        return this.data_fattura ? moment(this.data_fattura).format('DD-MM-YYYY') : '';
+        return this.data_fattura ? moment(this.data_fattura).format('DD-MM-YYYY') : '-';
     });
 
 GratuitoSchema
     .virtual('data_pagamento_formattata')
     .get(function () {
-        return this.data_pagamento ? moment(this.data_pagamento).format('DD-MM-YYYY') : '';
+        return this.data_pagamento ? moment(this.data_pagamento).format('DD-MM-YYYY') : '-';
     });
 
 GratuitoSchema

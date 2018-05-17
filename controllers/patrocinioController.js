@@ -11,24 +11,42 @@ exports.gratuito_list = function (req, res, next) {
     let noMatch = null;
     if (req.query.search) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-
-        Gratuito.find({ $or: [{ fascicolo: regex }, { rg: regex }] })
-            .populate('cliente')
-            .populate('materia')
-            .populate('giudice')
-            .populate('sede')
-            .sort({ 'fascicolo': 1 })
-            .exec((err, list_gratuito) => {
+        Gratuito.aggregate([
+            { $lookup: { from: "clientes", localField: "cliente", foreignField: "_id", as: "cliente" } },
+            { $lookup: { from: "materias", localField: "materia", foreignField: "_id", as: "materia" } },
+            { $lookup: { from: "giudices", localField: "giudice", foreignField: "_id", as: "giudice" } },
+            { $lookup: { from: "sedes", localField: "sede", foreignField: "_id", as: "sede" } },
+            { $unwind: "$cliente"},
+            { $unwind: "$materia" },
+            { $unwind: "$giudice" },
+            { $unwind: "$sede" },
+            { $match:
+                { $or:
+                    [
+                        { "cliente.nome": regex },
+                        { "cliente.cognome": regex },
+                        { "fascicolo": regex },
+                        { "rg": regex },
+                        { "materia.nome": regex },
+                        { "giudice.nome": regex },
+                        { "sede.nome": regex },
+                        { "ammissione": regex },
+                    ]
+                }
+            },
+            { $sort: { 'fascicolo': 1 } }
+        ])
+        .exec((err, list_gratuito) => {
                 if (err) {
                     return next(err);
                 }
                 else {
-                    res.render('gratuito_list', { title: 'Lista di Pratiche con Gratuito Patrocinio', gratuito_list: list_gratuito });
+                    res.render('gratuito_search', { title: 'Lista di Pratiche con Gratuito Patrocinio', gratuito_list: list_gratuito });
                     if (list_gratuito.length < 1) {
-                        noMatch = "No gratuito, please try again.";
+                        noMatch = "No gratuito, please try again!";
                     }
                 }
-            });
+        });
     }
     else {
         Gratuito.find({})

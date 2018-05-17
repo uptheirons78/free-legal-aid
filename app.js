@@ -13,6 +13,10 @@ const index = require('./routes/index');
 
 var app = express();
 
+//locals (so we can use it in .pug files)
+app.locals.moment = require('moment');
+app.locals.currencyFormatter = require('currency-formatter');
+
 // mongoose connection
 mongoose.connect(database);
 mongoose.Promise = global.Promise;
