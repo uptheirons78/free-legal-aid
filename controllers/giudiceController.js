@@ -38,7 +38,7 @@ exports.giudice_create_post = [
     //validate that name field is not empty
     body('nome', 'Nome del Giudice è obbligatorio').isLength({ min: 1 }).trim(),
     //sanitize (trim and escape) the name field
-    sanitizeBody('nome').trim().escape(),
+    sanitizeBody('nome').trim(),
 
     //after validation and sanitization, process request
     (req, res, next) => {
@@ -68,7 +68,7 @@ exports.giudice_create_post = [
     }
 ];
 
-// Display Genre delete form on GET.
+// Mostra il modulo per cancellare il Giudice on GET.
 exports.giudice_delete_get = async (req, res) => {
     try {
         const giudice = await Giudice.findById(req.params.id);
@@ -84,7 +84,7 @@ exports.giudice_delete_get = async (req, res) => {
     }
 };
 
-// Handle Genre delete on POST.
+// Gestisce il modulo per cancellare il Giudice on POST.
 exports.giudice_delete_post = async (req, res) => {
     try {
         const giudice = Giudice.findById(req.params.id);
@@ -109,7 +109,7 @@ exports.giudice_delete_post = async (req, res) => {
     }
 };
 
-// Display Genre update form on GET.
+// Mostra il modulo per aggiornare il Giudice on GET.
 exports.giudice_update_get = async (req, res) => {
     try {
         const giudice = await Giudice.findById(req.params.id);
@@ -124,13 +124,13 @@ exports.giudice_update_get = async (req, res) => {
     }
 };
 
-// Handle Genre update on POST.
+// Gestisce il modulo per aggiornare il Giudice on POST.
 exports.giudice_update_post = [
 
     // Validate that the name field is not empty.
     body('nome', 'Il Nome del Giudice è Necessario!').isLength({ min: 1 }).trim(),
-    // Sanitize (trim and escape) the name field.
-    sanitizeBody('nome').trim().escape(),
+    // Sanitize (trim) the name field.
+    sanitizeBody('nome').trim(),
     // Process request after validation and sanitization.
     (req, res, next) => {
         // Extract the validation errors from a request .

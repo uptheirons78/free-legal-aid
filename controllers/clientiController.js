@@ -37,8 +37,8 @@ exports.clienti_create_post = [
     body('data_di_nascita', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601(),
     body('luogo_di_nascita').isLength({ min: 1 }).trim().withMessage('Il Luogo di Nascita deve essere specificato!'),
 
-    sanitizeBody('nome').trim().escape(),
-    sanitizeBody('cognome').trim().escape(),
+    sanitizeBody('nome').trim(),
+    sanitizeBody('cognome').trim(),
     sanitizeBody('data_di_nascita').toDate(),
     sanitizeBody('luogo_di_nascita').trim().escape(),
 
@@ -59,7 +59,6 @@ exports.clienti_create_post = [
                 });
             cliente.save(function (err) {
                 if (err) { return next(err); }
-                // Successful - redirect to new author record.
                 res.redirect(cliente.url);
             });
         }
@@ -126,8 +125,8 @@ exports.clienti_update_post = [
     body('data_di_nascita', 'Data di nascita non valida!').optional({ checkFalsy: true }).isISO8601(),
     body('luogo_di_nascita', 'Il luogo di nascita del cliente è necessario!').isLength({ min: 1 }).trim(),
 
-    sanitizeBody('nome').trim().escape(),
-    sanitizeBody('cognome').trim().escape(),
+    sanitizeBody('nome').trim(),
+    sanitizeBody('cognome').trim(),
     sanitizeBody('data_di_nascita').toDate(),
     sanitizeBody('luogo_di_nascita').trim().escape(),
 
