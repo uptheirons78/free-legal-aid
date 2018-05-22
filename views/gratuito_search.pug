@@ -39,21 +39,21 @@ block content
           td #{gratuito.giudice.nome.slice(0,12)}
           td #{gratuito.sede.nome.slice(0,3)}
           td #{gratuito.rg}
-          td #{gratuito.data_istanza ? moment(gratuito.data_istanza).format('MM-DD-YYYY') : '-'}
+          td #{gratuito.data_istanza ? moment(gratuito.data_istanza).format('DD-MM-YYYY') : '-'}
           td #{gratuito.protocollo_istanza}
           if gratuito.ammissione == 'NON AMMESSO'
             td.red #{gratuito.ammissione.slice(0,3)}
           else
             td #{gratuito.ammissione.slice(0,3)}
-          td #{gratuito.data_istanza ? moment(gratuito.data_istanza).format('MM-DD-YYYY') : '-'}
-          td #{gratuito.data_istanza_liquidazione ? moment(gratuito.data_istanza_liquidazione).format('MM-DD-YYYY') : '-'}
+          td #{gratuito.data_istanza ? moment(gratuito.data_ammissione).format('DD-MM-YYYY') : '-'}
+          td #{gratuito.data_istanza_liquidazione ? moment(gratuito.data_istanza_liquidazione).format('DD-MM-YYYY') : '-'}
           td #{gratuito.importo_istanza_liquidazione ? currencyFormatter.format(gratuito.importo_istanza_liquidazione, { locale: 'it'}) : '-'}
-          td #{gratuito.data_decreto_liquidazione ? moment(gratuito.data_decreto_liquidazione).format('MM-DD-YYYY') : '-'}
+          td #{gratuito.data_decreto_liquidazione ? moment(gratuito.data_decreto_liquidazione).format('DD-MM-YYYY') : '-'}
           td #{gratuito.importo_decreto_liquidazione ? currencyFormatter.format(gratuito.importo_decreto_liquidazione, { locale: 'it'}) : '-'}
-          td #{gratuito.data_fattura ? moment(gratuito.data_fattura).format('MM-DD-YYYY') : '-'}
+          td #{gratuito.data_fattura ? moment(gratuito.data_fattura).format('DD-MM-YYYY') : '-'}
           td #{gratuito.fattura_elettronica}
           td #{gratuito.importo_fattura ? currencyFormatter.format(gratuito.importo_fattura, { locale: 'it'}) : '-'}
-          td #{gratuito.data_pagamento ? moment(gratuito.data_pagamento).format('MM-DD-YYYY') : '-'}
+          td #{gratuito.data_pagamento ? moment(gratuito.data_pagamento).format('DD-MM-YYYY') : '-'}
 
 
       else

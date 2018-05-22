@@ -17,8 +17,13 @@ exports.materia_list = function (req, res, next) {
 exports.materia_detail = async(req, res) => {
     try {
         const materia = await Materia.findById(req.params.id);
-        const materia_con_gratuito = await Gratuito.find({ 'materia': req.params.id }).populate('cliente');
-        if (materia == null) {
+        const materia_con_gratuito = await Gratuito.find({ 'materia': req.params.id })
+            .populate('cliente')
+            .populate('giudice')
+            .populate('sede')
+            .sort('fascicolo');
+
+            if (materia == null) {
             return res.status(404).send('Materia Non Trovata');
         }
         res.render('materia_detail', { title: 'Dettaglio Materia', materia, materia_con_gratuito });
@@ -35,12 +40,12 @@ exports.materia_create_get = (req, res) => {
 
 // Gestione Crea MATERIA on POST REQ.
 exports.materia_create_post = [
-    //validate that name field is not empty
+    //valida
     body('nome', 'Nome della Materia è obbligatorio').isLength({ min: 1 }).trim(),
-    //sanitize (trim and escape) the name field
+    //sanitizza
     sanitizeBody('nome').trim().escape(),
 
-    //after validation and sanitization, process request
+    //processa la richiesta
     (req, res, next) => {
         const errors = validationResult(req);
         const materia = new Materia({ nome: req.body.nome });
@@ -68,7 +73,7 @@ exports.materia_create_post = [
     }
 ];
 
-// Display Genre delete form on GET.
+// Mostra il modulo CANCELLA MATERIA on GET.
 exports.materia_delete_get = async (req, res) => {
     try {
         const materia = await Materia.findById(req.params.id);
@@ -84,7 +89,7 @@ exports.materia_delete_get = async (req, res) => {
     }
 };
 
-// Handle Genre delete on POST.
+// Gestisce CANCELLA MATERIA on POST.
 exports.materia_delete_post = async (req, res) => {
     try {
         const materia = Materia.findById(req.params.id);
@@ -109,7 +114,7 @@ exports.materia_delete_post = async (req, res) => {
     }
 };
 
-// Display Genre update form on GET.
+// Mostra il modulo AGGIORNA MATERIA on GET.
 exports.materia_update_get = async (req, res) => {
     try {
         const materia = await Materia.findById(req.params.id);
@@ -124,18 +129,16 @@ exports.materia_update_get = async (req, res) => {
     }
 };
 
-// Handle Genre update on POST.
+// Gestisce AGGIORNA MATERIA on POST.
 exports.materia_update_post = [
-
-    // Validate that the name field is not empty.
+    // Valida
     body('nome', 'Nome della Materia è necessario!').isLength({ min: 1 }).trim(),
-    // Sanitize (trim and escape) the name field.
+    // Sanitizza
     sanitizeBody('nome').trim().escape(),
-    // Process request after validation and sanitization.
+    // Processa la richiesta.
     (req, res, next) => {
-        // Extract the validation errors from a request .
         const errors = validationResult(req);
-        // Create a genre object with escaped and trimmed data (and the old id!)
+
         let materia = new Materia(
             {
                 nome: req.body.nome,
@@ -143,15 +146,13 @@ exports.materia_update_post = [
             }
         );
         if (!errors.isEmpty()) {
-            // There are errors. Render the form again with sanitized values and error messages.
+
             res.render('materia_form', { title: 'Modifica Materia', materia, errors: errors.array() });
             return;
         }
         else {
-            // Data from form is valid. Update the record.
             Materia.findByIdAndUpdate(req.params.id, materia, {}, function (err, la_materia) {
                 if (err) { return next(err); }
-                // Successful - redirect to genre detail page.
                 res.redirect(la_materia.url);
             });
         }
