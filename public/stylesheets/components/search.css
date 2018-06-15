@@ -1,0 +1,17 @@
+.ricerca input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.ricerca input[type="submit"] {
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #337ab7;
+    font-size: 17px;
+    border-color: #337ab7;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+}

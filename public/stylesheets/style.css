@@ -1,160 +1,24 @@
+@import url('components/headers.css');
+@import url('components/navbar.css');
+@import url('components/forms.css');
+@import url('components/buttons.css');
+@import url('components/search.css');
+@import url('components/tables.css');
+@import url('components/inputs.css');
+@import url('components/divider.css');
+@import url('components/panels.css');
+
 /* HTML and BODY */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     height: 100%;
     width: 100%;
 }
-/* NAVBAR STYLE */
-.navbar-inverse {
-    background-color: #337ab7;
-    border-color: #337ab7;
-    font-size: 1.2em;
-    font-weight: 600;
-}
 
-.navbar-inverse .navbar-brand {
-    color: white;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-    color: white;
-    text-transform: uppercase;
-}
-
-.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
-    color: #fff;
-    background-color: #03a9f4;
-}
-
-/* HEADERS STYLE */
-.page_title {
-    text-align: center;
-}
-
-.warning {
-    background: red;
-    padding: 5px 15px;
-    color: white;
-    border-radius: 7px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.pay_attention {
-    background: orange;
-    padding: 5px 15px;
-    color: white;
-    border-radius: 7px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.home_page_title {
-    background-color: #337ab7;
-    text-align: center;
-    color: white;
-    margin: 200px auto;
-    padding: 10px 20px;
-    width: 50%;
-}
-
-/* FORMS STYLE */
-.modulo {
-    padding: 30px 15px;
-}
-
-.modulo button {
-    width: 100%;
-    text-transform: uppercase;
-}
-
-.modulo button.btn.btn-danger {
-    width: 60%;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.delete_modulo button.btn.btn-danger {
-    width: 60%;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-a.btn {
-    margin: 5px;
-}
-
-.titolo {
-    margin-top: 30px;
-}
-
-/* TABLES STYLE */
-.gratuito-list {
-    font-size: 12px;
-}
-
-/* INPUTS TYPE DATE STYLE */
-input[type="date"]::before{
-    color: #999;
-    content: attr(placeholder) " ";
-}
-input[type="date"]:focus::before {
-    content: "" !important;
-}
-
-/* SELECT STYLE */
-select:invalid {
-    color: #999;
-}
-
-/* DIVIDER STYLE */
-.divider {
-    margin-bottom: 1%;
-}
-
-hr {
-    width: 50%;
-}
-
-.panel.panel-primary {
-    border: 3px solid #337ab7;
-    margin-top: 20px;
-    font-size: 14px;
-}
-
+/*GLOBAL LAYOUT */
 .red {
     color: red;
     font-weight: bold;
 }
 
-/* style buttons inside navbar */
-ul.nav.navbar-nav.navbar-right li a.btn.btn-warning {
-    padding: 8px;
-    font-weight: bold;
-    background-color: #f19206;
-}
 
-ul.nav.navbar-nav.navbar-right li a.btn.btn-warning:hover {
-    padding: 8px;
-    font-weight: bold;
-    background-color: #f0ad4e;
-}
-
-/* style search box */
-.ricerca input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-}
-
-.ricerca input[type="submit"] {
-    padding: 6px;
-    margin-top: 8px;
-    margin-right: 16px;
-    background: #337ab7;
-    font-size: 17px;
-    border-color: #337ab7;
-    cursor: pointer;
-    color: white;
-    font-weight: 600;
-}

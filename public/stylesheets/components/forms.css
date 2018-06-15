@@ -1,0 +1,28 @@
+.modulo {
+    padding: 30px 15px;
+}
+
+.modulo button {
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.modulo button.btn.btn-danger {
+    width: 60%;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.delete_modulo button.btn.btn-danger {
+    width: 60%;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+a.btn {
+    margin: 5px;
+}
+
+.titolo {
+    margin-top: 30px;
+}
