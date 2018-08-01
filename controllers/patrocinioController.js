@@ -79,6 +79,23 @@ exports.non_amesso = async (req, res, next) => {
     }
 };
 
+// Mostra le pratiche di gratuito patrocinio fatturate
+exports.fatturate = async (req, res, next) => {
+    try {
+        const list_gratuito = await Gratuito.find({ 'decreto_liquidazione': 'SI', 'fatturazione': 'SI' })
+            .populate('cliente')
+            .populate('materia')
+            .populate('giudice')
+            .populate('sede')
+            .sort({ 'fattura_elettronica': 1 });
+
+        res.render('gratuito_list', { title: 'Lista di Pratiche con Gratuito Patrocinio: FATTURATE', gratuito_list: list_gratuito });
+    }
+    catch (err) {
+        err => res.status(400).send(err);
+    }
+};
+
 // Mostra pagina dettaglio singola pratica di gratuito patrocinio
 exports.gratuito_detail = async (req, res) => {
     try {
