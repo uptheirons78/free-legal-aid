@@ -6,6 +6,7 @@ const giudice_controller = require('../controllers/giudiceController');
 const sede_controller = require('../controllers/sedeController');
 const clienti_controller = require('../controllers/clientiController');
 const gratuito_controller = require('../controllers/patrocinioController');
+const queries_controller = require('../controllers/queriesController');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -13,7 +14,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/diniego', gratuito_controller.non_amesso);
-router.get('/fatturate', gratuito_controller.fatturate);
 
 /// MATERIA ROUTES ///
 router.get('/materia/create', materia_controller.materia_create_get);
@@ -64,5 +64,13 @@ router.get('/gratuito/:id/update', gratuito_controller.gratuito_update_get);
 router.post('/gratuito/:id/update', gratuito_controller.gratuito_update_post);
 router.get('/gratuito/:id', gratuito_controller.gratuito_detail);
 router.get('/gratuito', gratuito_controller.gratuito_list);
+
+/// QUERIES ROUTES ///
+router.get('/queries', function(req, res, next) {
+  res.render('query', { title: 'Queries | Free Legal Aid' });
+});
+router.get('/fatturate-2016', queries_controller.fatturate_duemilasedici);
+router.get('/fatturate-2017', queries_controller.fatturate_duemiladiciassette);
+router.get('/fatturate-2018', queries_controller.fatturate_duemiladiciotto);
 
 module.exports = router;

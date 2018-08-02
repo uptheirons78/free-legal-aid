@@ -1,0 +1,56 @@
+extends layout
+
+block content
+  h1.page_title= title
+
+  table.table
+    thead
+      tr
+        th Fasc.
+        th Cliente
+        th Mat.
+        th Giud.
+        th Sede
+        th RG
+        th Data Istanza
+        th Prot. Ist.
+        th Amm.
+        th Data Amm.
+        th Data Liq.
+        th Imp. Ist. Liq.
+        th Data Decr. Liq.
+        th Imp. Decr. Liq.
+        th Data Fatt.
+        th Fatt. El.
+        th Imp. Fatt.
+        th Data Pag.
+    tbody.gratuito-list
+      each gratuito in gratuito_list
+        tr
+          td
+            a(href=gratuito.url) #{gratuito.fascicolo}
+          td #{gratuito.cliente.nome_completo}
+          td #{gratuito.materia.nome.slice(0,3)}
+          td #{gratuito.giudice.nome.slice(0,12)}
+          td #{gratuito.sede.nome.slice(0,3)}
+          td #{gratuito.rg}
+          td #{gratuito.data_istanza_formattata}
+          td #{gratuito.protocollo_istanza}
+          if gratuito.ammissione == 'NON AMMESSO'
+            td.red #{gratuito.ammissione.slice(0,3)}
+          else
+            td #{gratuito.ammissione.slice(0,3)}
+          td #{gratuito.data_ammissione_formattata}
+          td #{gratuito.data_istanza_liquidazione_formattata}
+          td #{gratuito.importo_istanza_liquidazione_formattato}
+          td #{gratuito.data_decreto_liquidazione_formattata}
+          td #{gratuito.importo_decreto_liquidazione_formattato}
+          td #{gratuito.data_fattura_formattata}
+          td #{gratuito.fattura_elettronica}
+          td #{gratuito.importo_fattura_formattato}
+          td #{gratuito.data_pagamento_formattata}
+
+
+      else
+        tr
+          td Non ci sono pratiche di gratuito patrocinio.

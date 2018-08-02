@@ -1,11 +1,19 @@
 ul.nav.navbar-nav.navbar-right li a.btn.btn-warning {
-    padding: 8px;
-    font-weight: bold;
-    background-color: #f19206;
+  padding: 8px;
+  font-weight: bold;
+  background-color: #f19206;
 }
 
 ul.nav.navbar-nav.navbar-right li a.btn.btn-warning:hover {
-    padding: 8px;
-    font-weight: bold;
-    background-color: #f0ad4e;
+  padding: 8px;
+  font-weight: bold;
+  background-color: #f0ad4e;
+}
+
+.btn-group {
+  margin-top: 2vh;
+}
+
+.btn-group a {
+  margin: 0;
 }
